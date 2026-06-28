@@ -24,8 +24,8 @@ class RandomEdits(ModuleBase):
     version = "1.0.1"
     author = "@modulesanhedonuya && @Hairpin00 port"
     description = {
-        "ru": "Отправляет случайный эдит из заданного Telegram-канала",
-        "en": "Sends a random edit from a configured Telegram channel",
+        "ru": "Отправляет случайный эдит",
+        "en": "Sends a random edit",
     }
 
     strings = {
@@ -79,14 +79,14 @@ class RandomEdits(ModuleBase):
         ConfigValue(
             "channel",
             "randomeditsforme",
-            description="Юзернейм, ID или ссылка на канал-источник эдитов",
+            description="Юзернейм, ID или ссылка на канал-источник эдитов(лучше не трогать)",
             validator=EntityLike(default="randomeditsforme"),
         ),
         ConfigValue(
             "sample_limit",
             40,
             description="Сколько последних сообщений канала просматривать при выборе",
-            validator=Integer(default=40, min=5, max=200),
+            validator=Integer(default=40, min=5, max=500),
         ),
     )
 
@@ -159,8 +159,8 @@ class RandomEdits(ModuleBase):
     @command(
         "randomedit",
         doc={
-            "ru": "отправить случайный эдит из канала-источника",
-            "en": "send a random edit from the source channel",
+            "ru": "отправить случайный эдит",
+            "en": "send a random edit",
         },
     )
     async def cmd_randomedit(self, event: events.NewMessage.Event) -> None:
@@ -202,19 +202,3 @@ class RandomEdits(ModuleBase):
                 status,
                 self.strings("unknown_error").format(error=html.escape(str(exc))),
             )
-
-    @command(
-        "reditcfg",
-        doc={
-            "ru": "показать текущие настройки RandomEdits",
-            "en": "show current RandomEdits settings",
-        },
-    )
-    async def cmd_reditcfg(self, event: events.NewMessage.Event) -> None:
-        await self._edit_status(
-            event,
-            self.strings("settings").format(
-                channel=html.escape(self._normalize_channel(self.config["channel"])),
-                limit=self.config["sample_limit"],
-            ),
-        )
