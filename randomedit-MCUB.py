@@ -21,7 +21,7 @@ class RandomEdits(ModuleBase):
     """Отправляет случайный эдит."""
 
     name = "RandomEdits"
-    version = "1.0.1"
+    version = "1.0.2"
     author = "@modulesanhedonuya && porting by @Hairpin00"
     description = {
         "ru": "Отправляет случайный эдит",
@@ -84,9 +84,9 @@ class RandomEdits(ModuleBase):
         ),
         ConfigValue(
             "sample_limit",
-            40,
+            500,
             description="Сколько последних сообщений канала просматривать при выборе",
-            validator=Integer(default=50, min=1, max=500),
+            validator=Integer(default=500, min=1, max=500),
         ),
     )
 
