@@ -1,6 +1,6 @@
 # meta name: RandomEdits
 # meta developer: @modulesanhedonuya
-# meta version: 1.0.1
+# meta version: 1.1.0.0
 # scope: hikka_only
 
 from random import choice
@@ -13,7 +13,7 @@ from .. import loader, utils
 
 @loader.tds
 class RandomEditsMod(loader.Module):
-    """Отправляет случайный эдит из указанного Telegram-канала."""
+    """Отправляет случайный эдит."""
 
     strings = {
         "name": "RandomEdits",
