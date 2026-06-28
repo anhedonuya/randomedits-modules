@@ -18,22 +18,22 @@ from core.lib.loader.module_config import ConfigValue, EntityLike, Integer, Modu
 
 
 class RandomEdits(ModuleBase):
-    """Отправляет случайный эдит из указанного Telegram-канала."""
+    """Отправляет случайный эдит."""
 
     name = "RandomEdits"
     version = "1.0.1"
-    author = "@modulesanhedonuya && @Hairpin00 port"
+    author = "@modulesanhedonuya && porting by @Hairpin00"
     description = {
-        "ru": "Отправляет случайный эдит из заданного Telegram-канала",
-        "en": "Sends a random edit from a configured Telegram channel",
+        "ru": "Отправляет случайный эдит",
+        "en": "Sends a random edit",
     }
 
     strings = {
         "ru": {
             "name": "RandomEdits",
-            "pick": '<tg-emoji emoji-id="5427312230767037491">🤔</tg-emoji> <b>Ищу случайный эдит...</b>',
-            "no_posts": '<tg-emoji emoji-id="5210952531676504517">❌</tg-emoji> <b>Не удалось найти подходящие посты в канале.</b>',
-            "done": '<tg-emoji emoji-id="5206607081334906820">✔️</tg-emoji> <b>Случайный эдит отправлен.</b>',
+            "pick": '<tg-emoji emoji-id="5427312230767037491">🤔</tg-emoji> <b>Ищу погодь...</b>',
+            "no_posts": '<tg-emoji emoji-id="5210952531676504517">❌</tg-emoji> <b>Не удалось найти подходящие эдит.</b>',
+            "done": '<tg-emoji emoji-id="5206607081334906820">✔️</tg-emoji> <b>Случайный эдит отправлен ниже.</b>',
             "settings": (
                 '<tg-emoji emoji-id="5341715473882955310">⚙️</tg-emoji> <b>Настройки модуля:</b>\n'
                 "<b>Канал:</b> <code>{channel}</code>\n"
@@ -41,8 +41,8 @@ class RandomEdits(ModuleBase):
             ),
             "bad_channel": '<tg-emoji emoji-id="5210952531676504517">❌</tg-emoji> <b>Канал недоступен или указан неверно.</b>',
             "protected": (
-                '<tg-emoji emoji-id="5274099962655816924">❗️</tg-emoji> <b>Telegram запретил повторную отправку этого медиа.</b>\n'
-                "<i>Попробуй ещё раз — будет выбран другой пост.</i>"
+                '<tg-emoji emoji-id="5274099962655816924">❗️</tg-emoji> <b>Telegram запретил повторную отправку этого эдита.</b>\n'
+                "<i>Попробуй ещё раз — будет выбран другой эдит.</i>"
             ),
             "flood": (
                 '<tg-emoji emoji-id="5395695537687123235">🚨</tg-emoji> <b>Слишком много запросов.</b>\n'
@@ -53,9 +53,9 @@ class RandomEdits(ModuleBase):
         },
         "en": {
             "name": "RandomEdits",
-            "pick": '<tg-emoji emoji-id="5427312230767037491">🤔</tg-emoji> <b>Looking for a random edit...</b>',
-            "no_posts": '<tg-emoji emoji-id="5210952531676504517">❌</tg-emoji> <b>No suitable posts were found in the channel.</b>',
-            "done": '<tg-emoji emoji-id="5206607081334906820">✔️</tg-emoji> <b>Random edit sent.</b>',
+            "pick": '<tg-emoji emoji-id="5427312230767037491">🤔</tg-emoji> <b>searching...</b>',
+            "no_posts": '<tg-emoji emoji-id="5210952531676504517">❌</tg-emoji> <b>No suitable edit were found, sorry.</b>',
+            "done": '<tg-emoji emoji-id="5206607081334906820">✔️</tg-emoji> <b>this edit ;).</b>',
             "settings": (
                 '<tg-emoji emoji-id="5341715473882955310">⚙️</tg-emoji> <b>Module settings:</b>\n'
                 "<b>Channel:</b> <code>{channel}</code>\n"
@@ -63,8 +63,8 @@ class RandomEdits(ModuleBase):
             ),
             "bad_channel": '<tg-emoji emoji-id="5210952531676504517">❌</tg-emoji> <b>Channel is unavailable or invalid.</b>',
             "protected": (
-                '<tg-emoji emoji-id="5274099962655816924">❗️</tg-emoji> <b>Telegram blocked forwarding this media.</b>\n'
-                "<i>Try again — another post will be selected.</i>"
+                '<tg-emoji emoji-id="5274099962655816924">❗️</tg-emoji> <b>Telegram blocked forwarding this edit :( </b>\n'
+                "<i>Try again — another edit will be selected.</i>"
             ),
             "flood": (
                 '<tg-emoji emoji-id="5395695537687123235">🚨</tg-emoji> <b>Too many requests.</b>\n'
@@ -79,14 +79,14 @@ class RandomEdits(ModuleBase):
         ConfigValue(
             "channel",
             "randomeditsforme",
-            description="Юзернейм, ID или ссылка на канал-источник эдитов",
+            description="Юзернейм, ID или ссылка на канал-источник эдитов(лучше не трогать)",
             validator=EntityLike(default="randomeditsforme"),
         ),
         ConfigValue(
             "sample_limit",
             40,
             description="Сколько последних сообщений канала просматривать при выборе",
-            validator=Integer(default=40, min=5, max=200),
+            validator=Integer(default=50, min=1, max=500),
         ),
     )
 
@@ -159,8 +159,8 @@ class RandomEdits(ModuleBase):
     @command(
         "randomedit",
         doc={
-            "ru": "отправить случайный эдит из канала-источника",
-            "en": "send a random edit from the source channel",
+            "ru": "отправить случайный эдит",
+            "en": "send a random edit",
         },
     )
     async def cmd_randomedit(self, event: events.NewMessage.Event) -> None:
@@ -202,19 +202,3 @@ class RandomEdits(ModuleBase):
                 status,
                 self.strings("unknown_error").format(error=html.escape(str(exc))),
             )
-
-    @command(
-        "reditcfg",
-        doc={
-            "ru": "показать текущие настройки RandomEdits",
-            "en": "show current RandomEdits settings",
-        },
-    )
-    async def cmd_reditcfg(self, event: events.NewMessage.Event) -> None:
-        await self._edit_status(
-            event,
-            self.strings("settings").format(
-                channel=html.escape(self._normalize_channel(self.config["channel"])),
-                limit=self.config["sample_limit"],
-            ),
-        )
