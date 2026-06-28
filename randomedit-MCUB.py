@@ -22,7 +22,7 @@ class RandomEdits(ModuleBase):
 
     name = "RandomEdits"
     version = "1.0.1"
-    author = "@modulesanhedonuya && @Hairpin00 port"
+    author = "@modulesanhedonuya && porting by @Hairpin00"
     description = {
         "ru": "Отправляет случайный эдит",
         "en": "Sends a random edit",
