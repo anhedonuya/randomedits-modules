@@ -17,9 +17,9 @@ class RandomEditsMod(loader.Module):
 
     strings = {
         "name": "RandomEdits",
-        "pick": "<a href=\"tg://emoji?id=5427312230767037491\">🤔</a> <b>Ищу случайный эдит...</b>",
-        "no_posts": "<a href=\"tg://emoji?id=5210952531676504517\">❌</a> <b>Не удалось найти подходящие посты в канале.</b>",
-        "done": "<a href=\"tg://emoji?id=5206607081334906820\">✔️</a> <b>Случайный эдит отправлен.</b>",
+        "pick": "<a href=\"tg://emoji?id=5427312230767037491\">🤔</a> <b>Ищу эдит</b>",
+        "no_posts": "<a href=\"tg://emoji?id=5210952531676504517\">❌</a> <b>Не удалось найти подходящий эдит.</b>",
+        "done": "<a href=\"tg://emoji?id=5206607081334906820\">✔️</a> <b>Случайный эдит отправлен ниже.</b>",
         "settings": (
             "<a href=\"tg://emoji?id=5341715473882955310\">⚙️</a> <b>Настройки модуля:</b>\n"
             "<b>Канал:</b> <code>{channel}</code>\n"
@@ -27,8 +27,8 @@ class RandomEditsMod(loader.Module):
         ),
         "bad_channel": "<a href=\"tg://emoji?id=5210952531676504517\">❌</a> <b>Канал недоступен или указан неверно.</b>",
         "protected": (
-            "<a href=\"tg://emoji?id=5274099962655816924\">❗️</a> <b>Telegram запретил повторную отправку этого медиа.</b>\n"
-            "<i>Попробуй ещё раз — будет выбран другой пост.</i>"
+            "<a href=\"tg://emoji?id=5274099962655816924\">❗️</a> <b>Telegram запретил повторную отправку этого эдита.</b>\n"
+            "<i>Попробуй ещё раз — будет выбран другой эдит.</i>"
         ),
         "flood": (
             "<a href=\"tg://emoji?id=5395695537687123235\">🚨</a> <b>Слишком много запросов.</b>\n"
@@ -45,14 +45,14 @@ class RandomEditsMod(loader.Module):
             loader.ConfigValue(
                 "channel",
                 "randomeditsforme",
-                lambda: "Юзернейм или ссылка на канал-источник эдитов",
+                lambda: "Юзернейм или ссылка на канал-источник эдитов(лучше не менять)",
                 validator=loader.validators.String(min_len=3, max_len=128),
             ),
             loader.ConfigValue(
                 "sample_limit",
                 40,
                 lambda: "Сколько последних сообщений канала просматривать при выборе",
-                validator=loader.validators.Integer(minimum=5, maximum=200),
+                validator=loader.validators.Integer(minimum=1, maximum=500),
             ),
         )
         self.db = None
@@ -112,11 +112,11 @@ class RandomEditsMod(loader.Module):
         return True, None
 
     @loader.command(
-        ru_doc="Отправить случайный эдит из канала-источника",
-        en_doc="Send a random edit from the source channel",
+        ru_doc="Отправить случайный эдит",
+        en_doc="Send a random edit",
     )
     async def randomeditcmd(self, message: Message):
-        """Отправить случайный эдит из канала-источника."""
+        """Отправить случайный эдит."""
         status = await utils.answer(message, self.strings("pick"))
 
         try:
