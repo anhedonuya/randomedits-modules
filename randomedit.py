@@ -1,6 +1,6 @@
 # meta name: RandomEdits
-# meta developer: @ck_ws
-# meta version: 1.0.0
+# meta developer: @modulesanhedonuya
+# meta version: 1.0.1
 # scope: hikka_only
 
 from random import choice
