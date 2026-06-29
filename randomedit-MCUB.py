@@ -21,7 +21,7 @@ class RandomEdits(ModuleBase):
     """Отправляет случайный эдит."""
 
     name = "RandomEdits"
-    version = "1.0.2"
+    version = "1.0.3"
     author = "@modulesanhedonuya && porting by @Hairpin00"
     description = {
         "ru": "Отправляет случайный эдит",
