@@ -1,5 +1,6 @@
 id = 'randomedits'
 name = 'RandomEdits'
+src = 'src'
 entrypoint = "RandomEdits.py"
 package = 'randomedits_lib'
 assets = "assets"
