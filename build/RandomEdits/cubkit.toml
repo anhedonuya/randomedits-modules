@@ -1,0 +1,5 @@
+id = 'randomedits'
+name = 'RandomEdits'
+entrypoint = "RandomEdits.py"
+package = 'randomedits_lib'
+assets = "assets"
