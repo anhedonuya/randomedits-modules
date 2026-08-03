@@ -167,9 +167,9 @@ class RandomEdits(
         Row(),
         ConfigValue(
             "sample_limit",
-            500,
+            999,
             description=lambda mod: mod.strings('key_sample_limit'),
-            validator=Integer(min=1, max=500),
+            validator=Integer(min=1, max=999),
         ),
     )
 
